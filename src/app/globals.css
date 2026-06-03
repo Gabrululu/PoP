@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-pop-bg: #0c0c14;
+  --color-pop-surface: #1a1a2e;
+  --color-pop-canvas: #06060e;
+  --color-pop-green: #35d07f;
+  --color-pop-green-dark: #0d2018;
+  --color-pop-border: #2a2a4a;
+  --color-pop-text: #e0e0f0;
+  --color-pop-muted: #5a5a8a;
+  --color-pop-red: #e24b4a;
+  --color-pop-amber: #f59e0b;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-3px); }
+  60%       { transform: translateX(3px); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes feedIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: #0c0c14;
+  color: #e0e0f0;
+  font-family: system-ui, -apple-system, sans-serif;
+  overscroll-behavior: none;
+  margin: 0;
+}
+
+canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.shake { animation: shake 0.3s ease-in-out; }
+.slide-up { animation: slideUp 0.2s ease-out forwards; }
+.feed-in { animation: feedIn 0.15s ease-out forwards; }
+
+button { font-family: inherit; }
+::-webkit-scrollbar { width: 0; }
