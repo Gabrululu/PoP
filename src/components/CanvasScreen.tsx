@@ -2,6 +2,7 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { Tool, InspectorPixel } from '@/types';
 import { PALETTE, COLS, ROWS, PIXEL_SCALE } from '@/constants';
+import { useLang } from '@/contexts/LangContext';
 
 interface Props {
   balance: number;
@@ -24,6 +25,7 @@ export default function CanvasScreen({
   isMiniPay, onPaint, onColorSelect, onToolSelect, onCoordsChange,
   onShowFeed, onInspect,
 }: Props) {
+  const { T, toggleLang } = useLang();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [flashPixel, setFlashPixel] = useState<{ x: number; y: number } | null>(null);
   const canAfford = balance >= 0.01;
@@ -48,12 +50,7 @@ export default function CanvasScreen({
       const { x, y } = flashPixel;
       ctx.strokeStyle = '#ffffff';
       ctx.lineWidth = 2;
-      ctx.strokeRect(
-        x * PIXEL_SCALE + 1,
-        y * PIXEL_SCALE + 1,
-        PIXEL_SCALE - 2,
-        PIXEL_SCALE - 2,
-      );
+      ctx.strokeRect(x * PIXEL_SCALE + 1, y * PIXEL_SCALE + 1, PIXEL_SCALE - 2, PIXEL_SCALE - 2);
     }
   }, [pixels, flashPixel]);
 
@@ -65,20 +62,16 @@ export default function CanvasScreen({
     drawCanvas();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    drawCanvas();
-  }, [drawCanvas]);
+  useEffect(() => { drawCanvas(); }, [drawCanvas]);
 
-  const getPixelCoords = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+  const getPixelCoords = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
     if (!canvas) return null;
     const rect = canvas.getBoundingClientRect();
-    const clientX = 'touches' in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
-    const clientY = 'touches' in e ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
-    const x = Math.floor((clientX - rect.left) * scaleX / PIXEL_SCALE);
-    const y = Math.floor((clientY - rect.top) * scaleY / PIXEL_SCALE);
+    const x = Math.floor((e.clientX - rect.left) * scaleX / PIXEL_SCALE);
+    const y = Math.floor((e.clientY - rect.top) * scaleY / PIXEL_SCALE);
     if (x < 0 || x >= COLS || y < 0 || y >= ROWS) return null;
     return { x, y };
   };
@@ -87,17 +80,9 @@ export default function CanvasScreen({
     const pos = getPixelCoords(e);
     if (!pos) return;
     onCoordsChange(pos);
-
-    if (selectedTool === 'picker') {
-      onColorSelect(pixels[pos.y][pos.x]);
-      return;
-    }
-    if (selectedTool === 'zoom') {
-      onInspect({ x: pos.x, y: pos.y, color: pixels[pos.y][pos.x] });
-      return;
-    }
-    if (selectedTool === 'paint') {
-      if (!canAfford) return;
+    if (selectedTool === 'picker') { onColorSelect(pixels[pos.y][pos.x]); return; }
+    if (selectedTool === 'zoom')   { onInspect({ x: pos.x, y: pos.y, color: pixels[pos.y][pos.x] }); return; }
+    if (selectedTool === 'paint' && canAfford) {
       onPaint(pos.x, pos.y);
       onInspect({ x: pos.x, y: pos.y, color: selectedColor });
       setFlashPixel(pos);
@@ -152,10 +137,10 @@ export default function CanvasScreen({
       {/* Top bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 16px 8px' }}>
         <span style={{ fontSize: 14, color: '#e0e0f0', fontWeight: 500 }}>PixelCelo</span>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           {isMiniPay && (
             <div style={{ background: '#0d2018', border: '0.5px solid #35d07f', borderRadius: 20, padding: '4px 10px' }}>
-              <span style={{ fontSize: 11, color: '#35d07f' }}>MiniPay ✓</span>
+              <span style={{ fontSize: 11, color: '#35d07f' }}>{T.miniPay}</span>
             </div>
           )}
           <div style={{ background: '#0d2018', border: '0.5px solid #35d07f', borderRadius: 20, padding: '4px 10px' }}>
@@ -165,23 +150,27 @@ export default function CanvasScreen({
             onClick={onShowFeed}
             style={{ background: '#1a1a2e', border: '0.5px solid #2a2a4a', borderRadius: 20, padding: '4px 10px', cursor: 'pointer' }}
           >
-            <span style={{ fontSize: 10, color: '#35d07f' }}>● live</span>
+            <span style={{ fontSize: 10, color: '#35d07f' }}>{T.live}</span>
+          </button>
+          <button
+            onClick={toggleLang}
+            style={{ background: '#1a1a2e', border: '0.5px solid #2a2a4a', borderRadius: 20, padding: '4px 10px', cursor: 'pointer' }}
+          >
+            <span style={{ fontSize: 10, color: '#5a5a8a', fontWeight: 500 }}>{T.langToggle}</span>
           </button>
         </div>
       </div>
 
       {/* Canvas card */}
       <div style={{ margin: '0 12px 10px', background: '#06060e', border: '0.5px solid #2a2a4a', borderRadius: 8, padding: 8 }}>
-        {/* Mini row */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-          <span style={{ fontSize: 10, color: '#5a5a8a' }}>mural 512×512</span>
+          <span style={{ fontSize: 10, color: '#5a5a8a' }}>{T.muralLabel}</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <button style={{ background: '#1a1a2e', border: '0.5px solid #2a2a4a', borderRadius: 4, width: 22, height: 22, color: '#e0e0f0', fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>−</button>
             <span style={{ fontSize: 10, color: '#5a5a8a' }}>8x</span>
             <button style={{ background: '#1a1a2e', border: '0.5px solid #2a2a4a', borderRadius: 4, width: 22, height: 22, color: '#e0e0f0', fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>+</button>
           </div>
         </div>
-
         <canvas
           ref={canvasRef}
           onClick={handleCanvasClick}
@@ -190,7 +179,7 @@ export default function CanvasScreen({
             width: '100%',
             aspectRatio: `${COLS}/${ROWS}`,
             imageRendering: 'pixelated',
-            cursor: selectedTool === 'picker' ? 'crosshair' : selectedTool === 'zoom' ? 'zoom-in' : 'crosshair',
+            cursor: selectedTool === 'zoom' ? 'zoom-in' : 'crosshair',
             display: 'block',
             borderRadius: 4,
           }}
@@ -201,15 +190,15 @@ export default function CanvasScreen({
       <div style={{ display: 'flex', gap: 6, padding: '0 12px', marginBottom: 10 }}>
         {toolBtn('paint',
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19 7-7 3 3-7 7-3-3z"/><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="m2 2 7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>,
-          'pintar'
+          T.toolPaint
         )}
         {toolBtn('picker',
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 2 1.17 9.83a2 2 0 0 0 0 2.83L9 20.66l7.83-7.83a2 2 0 0 0 0-2.83L9 2z"/><path d="M20 7 22 5"/><path d="M16 11l6 6"/></svg>,
-          'color'
+          T.toolColor
         )}
         {toolBtn('zoom',
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>,
-          'zoom'
+          T.toolZoom
         )}
       </div>
 
@@ -220,14 +209,9 @@ export default function CanvasScreen({
             key={color}
             onClick={() => { onColorSelect(color); onToolSelect('paint'); }}
             style={{
-              width: 28,
-              height: 28,
-              borderRadius: 4,
-              background: color,
+              width: 28, height: 28, borderRadius: 4, background: color,
               border: selectedColor === color ? '1.5px solid #ffffff' : '1.5px solid transparent',
-              cursor: 'pointer',
-              flexShrink: 0,
-              transition: 'border-color 0.1s',
+              cursor: 'pointer', flexShrink: 0, transition: 'border-color 0.1s',
             }}
           />
         ))}
@@ -236,7 +220,7 @@ export default function CanvasScreen({
       {/* Coords */}
       <div style={{ padding: '0 12px', marginBottom: 10 }}>
         <span style={{ fontSize: 11, color: '#5a5a8a', fontVariantNumeric: 'tabular-nums' }}>
-          cursor ({coords.x}, {coords.y})
+          {T.cursor(coords.x, coords.y)}
         </span>
       </div>
 
@@ -246,25 +230,21 @@ export default function CanvasScreen({
           onClick={handleCTAPaint}
           disabled={!canAfford}
           style={{
-            width: '100%',
-            padding: '13px',
+            width: '100%', padding: '13px',
             background: canAfford ? '#35d07f' : '#1a2018',
             color: canAfford ? '#0c0c14' : '#5a5a8a',
             border: canAfford ? 'none' : '0.5px solid #2a2a4a',
-            borderRadius: 8,
-            fontSize: 14,
-            fontWeight: 500,
+            borderRadius: 8, fontSize: 14, fontWeight: 500,
             cursor: canAfford ? 'pointer' : 'not-allowed',
-            transition: 'opacity 0.15s',
           }}
         >
-          {canAfford ? 'Pintar píxel — 0.01 cUSD' : 'Balance insuficiente'}
+          {canAfford ? T.paintCta : T.insufficientBalance}
         </button>
       </div>
 
-      {/* Footer stat */}
+      {/* Footer */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 12px 4px' }}>
-        <span style={{ fontSize: 11, color: '#5a5a8a' }}>píxeles pintados hoy</span>
+        <span style={{ fontSize: 11, color: '#5a5a8a' }}>{T.pixelsToday}</span>
         <span style={{ fontSize: 11, color: '#35d07f', fontWeight: 500, fontVariantNumeric: 'tabular-nums' }}>
           {txToday.toLocaleString('es')} txs
         </span>

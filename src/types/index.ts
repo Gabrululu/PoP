@@ -8,7 +8,7 @@ export interface FeedItem {
   x: number;
   y: number;
   color: string;
-  time: string;
+  timestamp: number;
 }
 
 export interface Zone {

@@ -1,22 +1,27 @@
 'use client';
 import { FeedItem } from '@/types';
+import { useLang } from '@/contexts/LangContext';
 
 interface Props {
   feed: FeedItem[];
   onClose: () => void;
 }
 
+function feedAge(timestamp: number, T: { feedNow: string; feedMin: (m: number) => string; feedHour: (h: number) => string }) {
+  const secs = Math.floor((Date.now() - timestamp) / 1000);
+  if (secs < 60) return T.feedNow;
+  if (secs < 3600) return T.feedMin(Math.floor(secs / 60));
+  return T.feedHour(Math.floor(secs / 3600));
+}
+
 export default function LiveFeed({ feed, onClose }: Props) {
+  const { T } = useLang();
+
   return (
     <>
       <div
         onClick={onClose}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 60,
-          background: 'rgba(0,0,0,0.6)',
-        }}
+        style={{ position: 'fixed', inset: 0, zIndex: 60, background: 'rgba(0,0,0,0.6)' }}
       />
       <div
         className="slide-up"
@@ -38,7 +43,6 @@ export default function LiveFeed({ feed, onClose }: Props) {
           paddingBottom: 64,
         }}
       >
-        {/* Header */}
         <div
           style={{
             position: 'sticky',
@@ -53,7 +57,7 @@ export default function LiveFeed({ feed, onClose }: Props) {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#35d07f', display: 'inline-block' }} />
-            <span style={{ fontSize: 13, fontWeight: 500, color: '#e0e0f0' }}>Actividad en vivo</span>
+            <span style={{ fontSize: 13, fontWeight: 500, color: '#e0e0f0' }}>{T.feedTitle}</span>
           </div>
           <button
             onClick={onClose}
@@ -63,11 +67,10 @@ export default function LiveFeed({ feed, onClose }: Props) {
           </button>
         </div>
 
-        {/* Feed items */}
         <div style={{ padding: '8px 0' }}>
           {feed.length === 0 ? (
             <div style={{ padding: '24px 16px', textAlign: 'center', color: '#5a5a8a', fontSize: 12 }}>
-              Esperando actividad…
+              {T.feedEmpty}
             </div>
           ) : (
             feed.map((item, i) => (
@@ -79,15 +82,15 @@ export default function LiveFeed({ feed, onClose }: Props) {
                   alignItems: 'center',
                   gap: 8,
                   padding: '8px 16px',
-                  borderBottom: '0.5px solid #1a1a2e',
+                  borderBottom: '0.5px solid #0c0c14',
                 }}
               >
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: item.color, flexShrink: 0 }} />
                 <span style={{ fontSize: 12, color: '#c0c0e0', flex: 1 }}>{item.address}</span>
-                <span style={{ fontSize: 11, color: '#5a5a8a' }}>
-                  ({item.x}, {item.y})
+                <span style={{ fontSize: 11, color: '#5a5a8a' }}>({item.x}, {item.y})</span>
+                <span style={{ fontSize: 10, color: '#5a5a8a', marginLeft: 4 }}>
+                  {feedAge(item.timestamp, T)}
                 </span>
-                <span style={{ fontSize: 10, color: '#5a5a8a', marginLeft: 4 }}>{item.time}</span>
               </div>
             ))
           )}

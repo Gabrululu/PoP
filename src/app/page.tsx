@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
+import { LangProvider } from '@/contexts/LangContext';
 import BottomNav from '@/components/BottomNav';
 import CanvasScreen from '@/components/CanvasScreen';
 import ZonasScreen from '@/components/ZonasScreen';
@@ -15,19 +16,7 @@ function initPixels(): string[][] {
   );
 }
 
-function ageFeedItems(items: FeedItem[]): FeedItem[] {
-  const now = Date.now();
-  return items.map(item => {
-    const secs = Math.floor((now - parseInt(item.id)) / 1000);
-    const time =
-      secs < 60 ? 'ahora' :
-      secs < 3600 ? `${Math.floor(secs / 60)} min` :
-      `${Math.floor(secs / 3600)} h`;
-    return { ...item, time };
-  });
-}
-
-export default function Home() {
+function App() {
   const [screen, setScreen] = useState<Screen>('canvas');
   const [balance, setBalance] = useState(2.40);
   const [selectedColor, setSelectedColor] = useState('#e24b4a');
@@ -46,26 +35,19 @@ export default function Home() {
     setIsMiniPay(!!(window as unknown as { ethereum?: { isMiniPay?: boolean } }).ethereum?.isMiniPay);
   }, []);
 
-  // Live feed: new item every 2.5s + age existing items every 30s
   useEffect(() => {
-    const addItem = setInterval(() => {
-      const id = `${Date.now()}-${Math.random()}`;
+    const interval = setInterval(() => {
       const item: FeedItem = {
-        id,
+        id: `${Date.now()}-${Math.random()}`,
         address: shortAddr(DEMO_ADDRESSES[Math.floor(Math.random() * DEMO_ADDRESSES.length)]),
         x: Math.floor(Math.random() * 512),
         y: Math.floor(Math.random() * 512),
         color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
-        time: 'ahora',
+        timestamp: Date.now(),
       };
       setFeed(prev => [item, ...prev].slice(0, 20));
     }, 2500);
-
-    const ageItems = setInterval(() => {
-      setFeed(prev => ageFeedItems(prev));
-    }, 30000);
-
-    return () => { clearInterval(addItem); clearInterval(ageItems); };
+    return () => clearInterval(interval);
   }, []);
 
   const handlePaint = useCallback((x: number, y: number) => {
@@ -103,7 +85,6 @@ export default function Home() {
             onInspect={setInspectorPixel}
           />
         )}
-
         {screen === 'zonas' && (
           <ZonasScreen
             zones={zones}
@@ -112,7 +93,6 @@ export default function Home() {
             onBalanceDeduct={handleBalanceDeduct}
           />
         )}
-
         {screen === 'stats' && (
           <StatsScreen totalPainted={totalPainted} txToday={txToday} />
         )}
@@ -134,5 +114,13 @@ export default function Home() {
         {showFeed && <LiveFeed feed={feed} onClose={() => setShowFeed(false)} />}
       </div>
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <LangProvider>
+      <App />
+    </LangProvider>
   );
 }
