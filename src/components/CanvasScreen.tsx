@@ -17,10 +17,10 @@ function ToolBtn({ id, icon, label, active, onSelect }: { id: Tool; icon: React.
       style={{
         flex: 1,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        gap: 5, padding: '8px 0', borderRadius: 10,
-        background: active ? '#0d2018' : '#13131f',
-        border: active ? '1px solid #35d07f60' : '1px solid #1e1e30',
-        color: active ? '#35d07f' : '#5a5a8a',
+        gap: 5, padding: '8px 0', borderRadius: 14,
+        background: active ? '#68c3a026' : '#ffffff',
+        border: active ? '2px solid #68c3a0' : '1px solid #2c2c2c14',
+        color: active ? '#2c2c2c' : '#8a8a8a',
         fontSize: 11, fontWeight: active ? 700 : 500,
         cursor: 'pointer', transition: 'all 0.12s',
       }}
@@ -78,7 +78,7 @@ export default function CanvasScreen({
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    ctx.fillStyle = '#06060e';
+    ctx.fillStyle = '#f3efe7';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     pixels.forEach((row, y) => {
       row.forEach((color, x) => {
@@ -88,7 +88,7 @@ export default function CanvasScreen({
     });
     if (flashPixel) {
       const { x, y } = flashPixel;
-      ctx.strokeStyle = '#ffffff';
+      ctx.strokeStyle = '#2c2c2c';
       ctx.lineWidth = 2;
       ctx.strokeRect(x * PIXEL_SCALE + 1, y * PIXEL_SCALE + 1, PIXEL_SCALE - 2, PIXEL_SCALE - 2);
     }
@@ -149,41 +149,42 @@ export default function CanvasScreen({
       {/* Top bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px 8px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 15, fontWeight: 800, color: '#e0e0f0', letterSpacing: '-0.5px' }}>
-            <span style={{ color: '#35d07f' }}>PoP</span>
-            <span style={{ color: '#5a5a8a', fontWeight: 500, fontSize: 12, marginLeft: 3 }}>Proof of Pixel</span>
+          <span className="font-display" style={{ fontSize: 20, color: '#2c2c2c', letterSpacing: '0.02em' }}>
+            <span style={{ color: '#68c3a0' }}>PoP</span>
+            <span style={{ color: '#8a8a8a', fontSize: 12, marginLeft: 3 }}>Proof of Pixel</span>
           </span>
           {isMiniPay && (
-            <span style={{ fontSize: 9, fontWeight: 700, color: '#35d07f', background: '#35d07f18', border: '0.5px solid #35d07f50', borderRadius: 20, padding: '2px 7px' }}>
+            <span style={{ fontSize: 9, fontWeight: 700, color: '#3a8a68', background: '#68c3a01a', border: '1px solid #68c3a066', borderRadius: 20, padding: '2px 7px' }}>
               MiniPay
             </span>
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
           {isConnected && address ? (
-            <div style={{ background: '#0d2018', border: '0.5px solid #35d07f50', borderRadius: 20, padding: '4px 10px' }}>
-              <span style={{ fontSize: 12, color: '#35d07f', fontWeight: 700 }}>{balance.toFixed(2)} USDm</span>
+            <div style={{ background: '#68c3a01a', border: '1px solid #68c3a066', borderRadius: 20, padding: '4px 10px' }}>
+              <span style={{ fontSize: 12, color: '#3a8a68', fontWeight: 700 }}>{balance.toFixed(2)} USDm</span>
             </div>
           ) : (
             <button
               onClick={onConnect}
-              style={{ background: 'linear-gradient(135deg, #35d07f, #2ab56a)', border: 'none', borderRadius: 20, padding: '5px 14px', cursor: 'pointer' }}
+              className="btn-press font-display"
+              style={{ background: '#68c3a0', border: 'none', borderRadius: 16, padding: '6px 16px', cursor: 'pointer', '--btn-shadow-color': '#4a9c7c' } as React.CSSProperties}
             >
-              <span style={{ fontSize: 11, color: '#0c0c14', fontWeight: 700 }}>Conectar</span>
+              <span style={{ fontSize: 12, color: '#ffffff' }}>Conectar</span>
             </button>
           )}
           <button
             onClick={onShowFeed}
-            style={{ background: '#13131f', border: '0.5px solid #1e1e30', borderRadius: 20, padding: '4px 9px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}
+            style={{ background: '#ffffff', border: '1px solid #2c2c2c14', borderRadius: 20, padding: '4px 9px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#35d07f', display: 'inline-block' }} />
-            <span style={{ fontSize: 10, color: '#c0c0e0' }}>{T.live}</span>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#68c3a0', display: 'inline-block' }} />
+            <span style={{ fontSize: 10, color: '#2c2c2c' }}>{T.live}</span>
           </button>
           <button
             onClick={toggleLang}
-            style={{ background: '#13131f', border: '0.5px solid #1e1e30', borderRadius: 20, padding: '4px 8px', cursor: 'pointer' }}
+            style={{ background: '#ffffff', border: '1px solid #2c2c2c14', borderRadius: 20, padding: '4px 8px', cursor: 'pointer' }}
           >
-            <span style={{ fontSize: 10, color: '#5a5a8a', fontWeight: 600 }}>{T.langToggle}</span>
+            <span style={{ fontSize: 10, color: '#8a8a8a', fontWeight: 600 }}>{T.langToggle}</span>
           </button>
         </div>
       </div>
@@ -197,10 +198,10 @@ export default function CanvasScreen({
       />
 
       {/* Canvas card */}
-      <div style={{ margin: '10px 12px 8px', background: '#06060e', border: '1px solid #1e1e30', borderRadius: 12, padding: 8 }}>
+      <div style={{ margin: '10px 12px 8px', background: '#ffffff', border: '1px solid #2c2c2c14', borderRadius: 20, padding: 8, boxShadow: '0 4px 0 0 #2c2c2c0a' }}>
         {/* Canvas label row */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-          <span style={{ fontSize: 10, color: '#3a3a5a', fontWeight: 600, letterSpacing: '0.05em' }}>{T.muralLabel}</span>
+          <span style={{ fontSize: 10, color: '#8a8a8a', fontWeight: 600, letterSpacing: '0.05em' }}>{T.muralLabel}</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             {/* Marks toggle */}
             <button
@@ -210,22 +211,22 @@ export default function CanvasScreen({
                 display: 'flex', alignItems: 'center', gap: 3, padding: 0,
               }}
             >
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#35d07f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#68c3a0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
                 <circle cx="12" cy="9" r="2.5"/>
               </svg>
-              <span style={{ fontSize: 9, color: '#35d07f', fontWeight: 700 }}>
+              <span style={{ fontSize: 9, color: '#3a8a68', fontWeight: 700 }}>
                 {allMarks.length} {allMarks.length === 1 ? 'marca' : 'marcas'}
               </span>
             </button>
-            <span style={{ fontSize: 10, color: '#3a3a5a', fontVariantNumeric: 'tabular-nums' }}>
+            <span style={{ fontSize: 10, color: '#8a8a8a', fontVariantNumeric: 'tabular-nums' }}>
               {T.cursor(coords.x, coords.y)}
             </span>
           </div>
         </div>
 
         {/* Canvas + marks overlay container */}
-        <div style={{ position: 'relative', borderRadius: 6, overflow: 'hidden' }}>
+        <div style={{ position: 'relative', borderRadius: 10, overflow: 'hidden' }}>
           <canvas
             ref={canvasRef}
             onClick={handleCanvasClick}
@@ -266,10 +267,10 @@ export default function CanvasScreen({
               key={color}
               onClick={() => { onColorSelect(color); onToolSelect('paint'); }}
               style={{
-                flex: 1, aspectRatio: '1', borderRadius: 7, background: color,
-                border: selectedColor === color ? '2.5px solid #ffffff' : '2.5px solid transparent',
+                flex: 1, aspectRatio: '1', borderRadius: 9, background: color,
+                border: selectedColor === color ? '3px solid #2c2c2c' : '3px solid transparent',
                 cursor: 'pointer',
-                boxShadow: selectedColor === color ? `0 0 8px ${color}80` : 'none',
+                boxShadow: selectedColor === color ? `0 0 0 1px #ffffff, 0 3px 0 0 #2c2c2c30` : 'none',
                 transition: 'all 0.1s', minWidth: 0,
               }}
             />
@@ -291,19 +292,21 @@ export default function CanvasScreen({
         <button
           onClick={!isConnected ? onConnect : handleCTAPaint}
           disabled={isConnected && (!canAfford || isPainting)}
+          className="btn-press font-display"
           style={{
             width: '100%', padding: '14px',
             background: isPainting
-              ? '#0d2018'
+              ? '#fabe49'
               : canAfford || !isConnected
-                ? 'linear-gradient(135deg, #35d07f, #2ab56a)'
-                : '#13131f',
-            color: isPainting ? '#35d07f' : canAfford || !isConnected ? '#0c0c14' : '#5a5a8a',
-            border: isPainting ? '1px solid #35d07f60' : 'none',
-            borderRadius: 12, fontSize: 14, fontWeight: 700,
+                ? '#68c3a0'
+                : '#ffffff',
+            color: isPainting ? '#2c2c2c' : canAfford || !isConnected ? '#ffffff' : '#8a8a8a',
+            border: canAfford || !isConnected || isPainting ? 'none' : '1px solid #2c2c2c14',
+            borderRadius: 16, fontSize: 16,
             cursor: isPainting ? 'not-allowed' : 'pointer',
-            transition: 'all 0.15s', letterSpacing: '-0.2px',
-          }}
+            transition: 'all 0.15s',
+            '--btn-shadow-color': isPainting ? '#c8983a' : canAfford || !isConnected ? '#4a9c7c' : '#2c2c2c1f',
+          } as React.CSSProperties}
         >
           {isPainting
             ? paintStatus === 'approving' ? '⏳ Aprobando USDm…' : '⏳ Pintando en Celo…'
@@ -315,8 +318,8 @@ export default function CanvasScreen({
 
       {/* Footer */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 14px 4px' }}>
-        <span style={{ fontSize: 10, color: '#3a3a5a' }}>{T.pixelsToday}</span>
-        <span style={{ fontSize: 11, color: '#35d07f', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
+        <span style={{ fontSize: 10, color: '#8a8a8a' }}>{T.pixelsToday}</span>
+        <span style={{ fontSize: 11, color: '#3a8a68', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
           {txToday.toLocaleString('es')}
         </span>
       </div>
@@ -343,10 +346,11 @@ export default function CanvasScreen({
             style={{
               position: 'fixed', bottom: 72, left: 12, right: 12, margin: '0 auto',
               maxWidth: 366,
-              background: '#13131f',
+              background: '#ffffff',
               border: `1px solid ${selectedMark.color}50`,
-              borderRadius: 14, padding: '12px 14px',
+              borderRadius: 18, padding: '12px 14px',
               zIndex: 66,
+              boxShadow: '0 4px 20px rgba(44,44,44,0.12)',
               display: 'flex', alignItems: 'center', gap: 12,
             }}
           >
@@ -354,10 +358,10 @@ export default function CanvasScreen({
               <span style={{ fontSize: 20 }}>{selectedMark.logo === 'celo' ? '🌱' : '📍'}</span>
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#e0e0f0' }}>{selectedMark.name}</div>
-              {selectedMark.tagline && <div style={{ fontSize: 11, color: '#5a5a8a', marginTop: 1 }}>{selectedMark.tagline}</div>}
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#2c2c2c' }}>{selectedMark.name}</div>
+              {selectedMark.tagline && <div style={{ fontSize: 11, color: '#8a8a8a', marginTop: 1 }}>{selectedMark.tagline}</div>}
             </div>
-            <button onClick={() => setSelectedMark(null)} style={{ background: 'none', border: 'none', color: '#5a5a8a', cursor: 'pointer', fontSize: 16 }}>×</button>
+            <button onClick={() => setSelectedMark(null)} style={{ background: 'none', border: 'none', color: '#8a8a8a', cursor: 'pointer', fontSize: 16 }}>×</button>
           </div>
         </>
       )}

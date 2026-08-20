@@ -30,6 +30,12 @@ export const CELO_BRAND = {
   forest: '#476520',  // deep green accent
 } as const;
 
+// Centered zone: 8×6 cells
+const CELO_ZONE_WIDTH  = 8;
+const CELO_ZONE_HEIGHT = 6;
+const CELO_ZONE_X1 = Math.floor((COLS - CELO_ZONE_WIDTH) / 2);
+const CELO_ZONE_Y1 = Math.floor((ROWS - CELO_ZONE_HEIGHT) / 2);
+
 export const OFFICIAL_MARKS: Mark[] = [
   {
     id: 'celo',
@@ -38,11 +44,10 @@ export const OFFICIAL_MARKS: Mark[] = [
     color: CELO_BRAND.green,
     borderColor: CELO_BRAND.green,
     bgOpacity: 0.08,
-    // Top-left zone: 7×5 cells
-    x1: 0,
-    y1: 0,
-    x2: Math.min(7, COLS - 1),
-    y2: Math.min(5, ROWS - 1),
+    x1: CELO_ZONE_X1,
+    y1: CELO_ZONE_Y1,
+    x2: CELO_ZONE_X1 + CELO_ZONE_WIDTH - 1,
+    y2: CELO_ZONE_Y1 + CELO_ZONE_HEIGHT - 1,
     logo: 'celo',
     official: true,
     website: 'https://celo.org',

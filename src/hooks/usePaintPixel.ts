@@ -32,9 +32,25 @@ export function usePaintPixel() {
     query: { enabled: !!address },
   });
 
+  // Needed to decide the gas fee currency: MiniPay wallets without USDm
+  // must fall back to paying gas in native CELO instead of failing.
+  const { data: usdmBalanceRaw } = useReadContract({
+    address: USDM_ADDRESS,
+    abi: ERC20_ABI,
+    functionName: 'balanceOf',
+    args: address ? [address] : undefined,
+    query: { enabled: !!address },
+  });
+
   const { isLoading: isWaiting } = useWaitForTransactionReceipt({ hash: lastTxHash });
 
-  const feeCurrencyArgs = useMemo(() => (isMiniPayEnv() ? { feeCurrency: FEE_CURRENCY } : {}), []);
+  const hasUsdm = ((usdmBalanceRaw as bigint | undefined) ?? 0n) > 0n;
+  // Only ask for USDm-denominated gas when the wallet actually holds USDm;
+  // otherwise omit feeCurrency so the wallet pays gas in native CELO.
+  const feeCurrencyArgs = useMemo(
+    () => (isMiniPayEnv() && hasUsdm ? { feeCurrency: FEE_CURRENCY } : {}),
+    [hasUsdm]
+  );
   const dataSuffix = getAttributionSuffix();
   const tagArgs = useMemo(() => (dataSuffix ? { dataSuffix } : {}), [dataSuffix]);
 

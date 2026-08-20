@@ -14,8 +14,8 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
       config={{
         loginMethods: ['email', 'google', 'wallet'],
         appearance: {
-          theme: 'dark',
-          accentColor: '#35d07f',
+          theme: 'light',
+          accentColor: '#68c3a0',
           landingHeader: 'Proof of Pixel',
           loginMessage: 'Conecta para pintar en Celo',
         },

@@ -30,13 +30,13 @@ function Toast({ event, onDismiss }: { event: ReclaimEvent; onDismiss: () => voi
       onClick={() => { setVisible(false); setTimeout(onDismiss, 300); }}
       style={{
         display: 'flex', alignItems: 'center', gap: 10,
-        background: '#1a1a2e',
-        border: '1px solid #e24b4a60',
-        borderLeft: '3px solid #e24b4a',
-        borderRadius: 10,
+        background: '#ffffff',
+        border: '1px solid #e74c3c40',
+        borderLeft: '3px solid #e74c3c',
+        borderRadius: 12,
         padding: '10px 12px',
         cursor: 'pointer',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+        boxShadow: '0 4px 20px rgba(44,44,44,0.14)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(-8px)',
         transition: 'opacity 0.25s ease, transform 0.25s ease',
@@ -44,12 +44,12 @@ function Toast({ event, onDismiss }: { event: ReclaimEvent; onDismiss: () => voi
     >
       <div style={{ width: 8, height: 8, borderRadius: '50%', background: event.color, flexShrink: 0, boxShadow: `0 0 6px ${event.color}` }} />
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#e24b4a', marginBottom: 1 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#e74c3c', marginBottom: 1 }}>
           ⚡ Tu píxel fue reclamado
         </div>
-        <div style={{ fontSize: 11, color: '#c0c0e0' }}>
+        <div style={{ fontSize: 11, color: '#2c2c2c' }}>
           ({event.x}, {event.y}) · por{' '}
-          <span style={{ color: '#35d07f', fontFamily: 'monospace' }}>{event.newPainter.slice(0, 6)}…{event.newPainter.slice(-4)}</span>
+          <span style={{ color: '#3a8a68', fontFamily: 'monospace' }}>{event.newPainter.slice(0, 6)}…{event.newPainter.slice(-4)}</span>
         </div>
       </div>
     </div>

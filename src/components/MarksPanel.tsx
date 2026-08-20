@@ -41,37 +41,37 @@ export default function MarksPanel({ userMarks, balance, onClose, onCreateMark }
 
   return (
     <>
-      <div onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.65)', zIndex: 70 }} />
+      <div onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(44,44,44,0.45)', zIndex: 70 }} />
       <div
         className="slide-up"
         style={{
           position: 'fixed', bottom: 0, left: 0, right: 0,
           margin: '0 auto', width: '100%', maxWidth: '390px',
-          background: '#0f0f1a',
-          borderTop: '1px solid #35d07f40',
-          borderRadius: '20px 20px 0 0',
+          background: '#ffffff',
+          borderRadius: '24px 24px 0 0',
           paddingBottom: 40,
           zIndex: 80,
           maxHeight: '82vh',
           overflowY: 'auto',
+          boxShadow: '0 -8px 24px rgba(44,44,44,0.08)',
         }}
       >
         {/* Handle */}
         <div style={{ padding: '12px 0 4px', display: 'flex', justifyContent: 'center' }}>
-          <div style={{ width: 36, height: 4, background: '#2a2a4a', borderRadius: 2 }} />
+          <div style={{ width: 36, height: 4, background: '#2c2c2c1f', borderRadius: 2 }} />
         </div>
 
         {/* Header */}
         <div style={{ padding: '8px 16px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
-            <div style={{ fontSize: 16, fontWeight: 800, color: '#e0e0f0', letterSpacing: '-0.3px' }}>
+            <div className="font-display" style={{ fontSize: 18, color: '#2c2c2c' }}>
               {isES ? 'Marcas territoriales' : 'Territorial marks'}
             </div>
-            <div style={{ fontSize: 11, color: '#5a5a8a', marginTop: 2 }}>
+            <div style={{ fontSize: 11, color: '#8a8a8a', marginTop: 2 }}>
               {isES ? 'Zonas reclamadas en el canvas' : 'Claimed zones on the canvas'}
             </div>
           </div>
-          <button onClick={onClose} style={{ background: '#1a1a2e', border: '0.5px solid #2a2a4a', borderRadius: 8, width: 32, height: 32, cursor: 'pointer', color: '#5a5a8a', fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
+          <button onClick={onClose} style={{ background: '#ffffff', border: '1px solid #2c2c2c1f', borderRadius: 10, width: 32, height: 32, cursor: 'pointer', color: '#8a8a8a', fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
         </div>
 
         {/* Marks list */}
@@ -82,12 +82,13 @@ export default function MarksPanel({ userMarks, balance, onClose, onCreateMark }
               <div
                 key={mark.id}
                 style={{
-                  background: isCelo ? CELO_BRAND.dark : '#13131f',
+                  background: isCelo ? CELO_BRAND.dark : '#ffffff',
                   border: isCelo
                     ? `1.5px solid ${CELO_BRAND.green}50`
-                    : `1px solid ${mark.color}30`,
-                  borderRadius: 14,
+                    : `1px solid ${mark.color}40`,
+                  borderRadius: 16,
                   overflow: 'hidden',
+                  boxShadow: isCelo ? 'none' : '0 1px 0 0 #2c2c2c0f',
                 }}
               >
                 {/* Celo card */}
@@ -124,14 +125,14 @@ export default function MarksPanel({ userMarks, balance, onClose, onCreateMark }
                       {Object.entries(CELO_BRAND).map(([name, hex]) => (
                         <div key={name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
                           <div style={{ width: 20, height: 20, borderRadius: 5, background: hex, border: '1px solid rgba(255,255,255,0.08)' }} />
-                          <span style={{ fontSize: 7, color: '#3a5a4a', fontFamily: 'DM Mono, monospace' }}>{hex}</span>
+                          <span style={{ fontSize: 7, color: '#68c3a0', fontFamily: 'DM Mono, monospace' }}>{hex}</span>
                         </div>
                       ))}
                     </div>
 
                     {/* Zona info */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: 10, color: '#3a5a4a', fontFamily: 'DM Mono, monospace' }}>
+                      <span style={{ fontSize: 10, color: '#68c3a0', fontFamily: 'DM Mono, monospace' }}>
                         ({mark.x1},{mark.y1}) → ({mark.x2},{mark.y2})
                       </span>
                       <a
@@ -159,7 +160,7 @@ export default function MarksPanel({ userMarks, balance, onClose, onCreateMark }
                     <div style={{
                       position: 'absolute', top: -20, right: -20,
                       width: 60, height: 60, background: mark.color,
-                      borderRadius: '50%', opacity: 0.05, filter: 'blur(16px)',
+                      borderRadius: '50%', opacity: 0.08, filter: 'blur(16px)',
                     }} />
                     <div style={{
                       width: 40, height: 40, borderRadius: 10,
@@ -171,8 +172,8 @@ export default function MarksPanel({ userMarks, balance, onClose, onCreateMark }
                       <div style={{ width: 20, height: 20, borderRadius: 5, background: mark.color }} />
                     </div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: '#e0e0f0', marginBottom: 2 }}>{mark.name}</div>
-                      <div style={{ fontSize: 10, color: '#3a3a5a', fontFamily: 'monospace' }}>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: '#2c2c2c', marginBottom: 2 }}>{mark.name}</div>
+                      <div style={{ fontSize: 10, color: '#8a8a8a', fontFamily: 'monospace' }}>
                         ({mark.x1},{mark.y1}) → ({mark.x2},{mark.y2})
                       </div>
                     </div>
@@ -187,12 +188,12 @@ export default function MarksPanel({ userMarks, balance, onClose, onCreateMark }
         {/* Create form */}
         {showForm ? (
           <div style={{ padding: '0 12px' }}>
-            <div style={{ background: '#13131f', border: '1px solid #1e1e30', borderRadius: 14, padding: 14 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#e0e0f0', marginBottom: 12 }}>
+            <div style={{ background: '#f3efe7', border: '1px solid #2c2c2c14', borderRadius: 18, padding: 14 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#2c2c2c', marginBottom: 12 }}>
                 {isES ? 'Registrar mi marca' : 'Register my mark'}
               </div>
 
-              <label style={{ fontSize: 10, color: '#5a5a8a', fontWeight: 600, display: 'block', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <label style={{ fontSize: 10, color: '#8a8a8a', fontWeight: 600, display: 'block', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 {isES ? 'Nombre' : 'Name'}
               </label>
               <input
@@ -200,26 +201,26 @@ export default function MarksPanel({ userMarks, balance, onClose, onCreateMark }
                 onChange={e => setNewName(e.target.value)}
                 placeholder={isES ? 'Mi comunidad…' : 'My community…'}
                 maxLength={20}
-                style={{ width: '100%', background: '#0c0c14', border: '1px solid #2a2a4a', borderRadius: 8, padding: '9px 12px', color: '#e0e0f0', fontSize: 14, marginBottom: 12, outline: 'none', boxSizing: 'border-box' }}
+                style={{ width: '100%', background: '#ffffff', border: '1px solid #2c2c2c1f', borderRadius: 10, padding: '9px 12px', color: '#2c2c2c', fontSize: 14, marginBottom: 12, outline: 'none', boxSizing: 'border-box' }}
               />
 
-              <label style={{ fontSize: 10, color: '#5a5a8a', fontWeight: 600, display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <label style={{ fontSize: 10, color: '#8a8a8a', fontWeight: 600, display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Color
               </label>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
                 {USER_COLORS.map(c => (
-                  <button key={c} onClick={() => setNewColor(c)} style={{ width: 32, height: 32, borderRadius: 8, background: c, border: newColor === c ? '2.5px solid #fff' : '2.5px solid transparent', cursor: 'pointer', boxShadow: newColor === c ? `0 0 8px ${c}80` : 'none' }} />
+                  <button key={c} onClick={() => setNewColor(c)} style={{ width: 32, height: 32, borderRadius: 8, background: c, border: newColor === c ? '2.5px solid #2c2c2c' : '2.5px solid transparent', cursor: 'pointer', boxShadow: newColor === c ? `0 0 8px ${c}80` : 'none' }} />
                 ))}
               </div>
 
               <div style={{ display: 'flex', gap: 8 }}>
-                <button onClick={() => setShowForm(false)} style={{ flex: 1, padding: '11px', background: '#1a1a2e', border: '0.5px solid #2a2a4a', borderRadius: 10, color: '#5a5a8a', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+                <button onClick={() => setShowForm(false)} style={{ flex: 1, padding: '11px', background: '#ffffff', border: '1px solid #2c2c2c1f', borderRadius: 12, color: '#8a8a8a', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
                   {isES ? 'Cancelar' : 'Cancel'}
                 </button>
                 <button
                   onClick={handleCreate}
                   disabled={!newName.trim() || !canCreate}
-                  style={{ flex: 2, padding: '11px', background: newName.trim() && canCreate ? `linear-gradient(135deg, ${newColor}, ${newColor}cc)` : '#1a1a2e', border: 'none', borderRadius: 10, color: newName.trim() && canCreate ? '#fff' : '#5a5a8a', fontSize: 13, fontWeight: 700, cursor: newName.trim() && canCreate ? 'pointer' : 'not-allowed' }}
+                  style={{ flex: 2, padding: '11px', background: newName.trim() && canCreate ? `linear-gradient(135deg, ${newColor}, ${newColor}cc)` : '#ffffff', border: newName.trim() && canCreate ? 'none' : '1px solid #2c2c2c1f', borderRadius: 12, color: newName.trim() && canCreate ? '#fff' : '#8a8a8a', fontSize: 13, fontWeight: 700, cursor: newName.trim() && canCreate ? 'pointer' : 'not-allowed' }}
                 >
                   {isES ? 'Registrar — 1 USDm' : 'Register — 1 USDm'}
                 </button>
@@ -230,12 +231,12 @@ export default function MarksPanel({ userMarks, balance, onClose, onCreateMark }
           <div style={{ padding: '0 12px' }}>
             <button
               onClick={() => setShowForm(true)}
-              style={{ width: '100%', padding: '13px', background: '#13131f', border: '1px dashed #35d07f40', borderRadius: 12, color: '#35d07f', fontSize: 13, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}
+              style={{ width: '100%', padding: '13px', background: '#68c3a01a', border: '1px dashed #68c3a0', borderRadius: 14, color: '#3a8a68', fontSize: 13, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}
             >
               <span style={{ fontSize: 16 }}>+</span>
               {isES ? 'Registrar mi marca — 1 USDm' : 'Register my mark — 1 USDm'}
             </button>
-            <div style={{ textAlign: 'center', marginTop: 6, fontSize: 10, color: '#3a3a5a' }}>
+            <div style={{ textAlign: 'center', marginTop: 6, fontSize: 10, color: '#b0aca3' }}>
               {isES ? `Necesitas 1 USDm · balance: ${balance.toFixed(2)}` : `Requires 1 USDm · balance: ${balance.toFixed(2)}`}
             </div>
           </div>

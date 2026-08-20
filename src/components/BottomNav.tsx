@@ -51,9 +51,9 @@ export default function BottomNav({ screen, onNavigate }: Props) {
         transform: 'translateX(-50%)',
         width: '100%',
         maxWidth: '390px',
-        background: 'rgba(12,12,20,0.96)',
+        background: 'rgba(255,255,255,0.96)',
         backdropFilter: 'blur(12px)',
-        borderTop: '0.5px solid #2a2a4a',
+        borderTop: '1px solid #2c2c2c14',
         display: 'flex',
         zIndex: 50,
       }}
@@ -74,7 +74,7 @@ export default function BottomNav({ screen, onNavigate }: Props) {
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              color: active ? '#35d07f' : '#5a5a8a',
+              color: active ? '#3a8a68' : '#8a8a8a',
               transition: 'color 0.15s',
               position: 'relative',
             }}
@@ -83,9 +83,9 @@ export default function BottomNav({ screen, onNavigate }: Props) {
               <div style={{
                 position: 'absolute',
                 top: 0, left: '20%', right: '20%',
-                height: 2,
-                background: '#35d07f',
-                borderRadius: '0 0 2px 2px',
+                height: 3,
+                background: '#68c3a0',
+                borderRadius: '0 0 3px 3px',
               }} />
             )}
             {tab.icon}

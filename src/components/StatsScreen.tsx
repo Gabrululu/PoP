@@ -47,14 +47,14 @@ export default function StatsScreen({ txToday }: Props) {
     <div style={{ display: 'flex', flexDirection: 'column', flex: 1, paddingBottom: 64, overflowY: 'auto' }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 16px 12px' }}>
-        <span style={{ fontSize: 16, fontWeight: 700, color: '#e0e0f0', letterSpacing: '-0.3px' }}>
+        <span className="font-display" style={{ fontSize: 20, color: '#2c2c2c' }}>
           {T.statsHeader}
         </span>
         <button
           onClick={toggleLang}
-          style={{ background: '#13131f', border: '0.5px solid #1e1e30', borderRadius: 20, padding: '3px 10px', cursor: 'pointer' }}
+          style={{ background: '#ffffff', border: '1px solid #2c2c2c14', borderRadius: 20, padding: '3px 10px', cursor: 'pointer' }}
         >
-          <span style={{ fontSize: 10, color: '#5a5a8a', fontWeight: 600 }}>{T.langToggle}</span>
+          <span style={{ fontSize: 10, color: '#8a8a8a', fontWeight: 600 }}>{T.langToggle}</span>
         </button>
       </div>
 
@@ -64,9 +64,9 @@ export default function StatsScreen({ txToday }: Props) {
           <div
             key={m.label}
             style={{
-              background: '#13131f',
-              border: '1px solid #1e1e30',
-              borderRadius: 14,
+              background: '#ffffff',
+              border: '1px solid #2c2c2c14',
+              borderRadius: 16,
               padding: '14px 12px',
               position: 'relative',
               overflow: 'hidden',
@@ -76,21 +76,21 @@ export default function StatsScreen({ txToday }: Props) {
               <div style={{
                 position: 'absolute', bottom: -20, right: -20,
                 width: 80, height: 80,
-                background: '#35d07f',
+                background: '#68c3a0',
                 borderRadius: '50%',
-                opacity: 0.06,
+                opacity: 0.12,
                 filter: 'blur(20px)',
               }} />
             )}
             <div style={{ fontSize: 18, marginBottom: 6 }}>{m.icon}</div>
-            <div style={{ fontSize: 10, color: '#5a5a8a', fontWeight: 600, marginBottom: 5, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+            <div style={{ fontSize: 10, color: '#8a8a8a', fontWeight: 600, marginBottom: 5, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
               {m.label}
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
-              <span style={{ fontSize: 22, fontWeight: 800, color: m.accent ? '#35d07f' : '#e0e0f0', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.5px' }}>
+              <span style={{ fontSize: 22, fontWeight: 800, color: m.accent ? '#3a8a68' : '#2c2c2c', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.5px' }}>
                 {m.value}
               </span>
-              {m.unit && <span style={{ fontSize: 11, color: '#5a5a8a', fontWeight: 500 }}>{m.unit}</span>}
+              {m.unit && <span style={{ fontSize: 11, color: '#8a8a8a', fontWeight: 500 }}>{m.unit}</span>}
             </div>
           </div>
         ))}
@@ -99,47 +99,46 @@ export default function StatsScreen({ txToday }: Props) {
       {/* Canvas completion */}
       <div style={{ margin: '0 12px 14px' }}>
         <div style={{
-          background: 'linear-gradient(135deg, #0d2a1a 0%, #0c1e2e 50%, #0d2a1a 100%)',
-          border: '1px solid #35d07f30',
-          borderRadius: 14,
+          background: '#68c3a0',
+          borderRadius: 20,
           padding: '16px',
+          boxShadow: '0 4px 0 0 #4a9c7c',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
             <div>
-              <div style={{ fontSize: 10, color: '#5a8a6a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 3 }}>
+              <div style={{ fontSize: 10, color: '#ffffffcc', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 3 }}>
                 {T.statsProgressLabel}
               </div>
-              <div style={{ fontSize: 11, color: '#5a8a6a' }}>
+              <div style={{ fontSize: 11, color: '#ffffffcc' }}>
                 {T.statsPixelsCount(chainTotal.toLocaleString(), TOTAL_PIXELS.toLocaleString())} píxeles
               </div>
             </div>
-            <div style={{ fontSize: 28, fontWeight: 800, color: '#35d07f', fontVariantNumeric: 'tabular-nums', letterSpacing: '-1px' }}>
+            <div className="font-display" style={{ fontSize: 30, color: '#ffffff', fontVariantNumeric: 'tabular-nums' }}>
               {completedPct.toFixed(2)}
-              <span style={{ fontSize: 14, fontWeight: 500, color: '#35d07f80' }}>%</span>
+              <span style={{ fontSize: 14, color: '#ffffffb3' }}>%</span>
             </div>
           </div>
 
           {/* Progress bar */}
-          <div style={{ background: '#061410', border: '1px solid #35d07f20', borderRadius: 6, height: 8, overflow: 'hidden' }}>
+          <div style={{ background: '#ffffff40', borderRadius: 6, height: 8, overflow: 'hidden' }}>
             <div style={{
               height: '100%',
               width: `${Math.max(barWidth, 0.5)}%`,
-              background: 'linear-gradient(90deg, #35d07f, #2ab56a)',
+              background: '#ffffff',
               borderRadius: 6,
               transition: 'width 0.8s ease',
-              boxShadow: '0 0 10px #35d07f60',
             }} />
           </div>
 
-          <div style={{ marginTop: 8, fontSize: 10, color: '#3a5a48' }}>
+          <div style={{ marginTop: 8, fontSize: 10, color: '#ffffffb3' }}>
             {TOTAL_PIXELS.toLocaleString()} píxeles totales · 512 × 512
           </div>
         </div>
       </div>
 
       {/* Network info */}
-      <div style={{ margin: '0 12px', background: '#13131f', border: '1px solid #1e1e30', borderRadius: 14, padding: '12px 14px' }}>
-        <div style={{ fontSize: 10, color: '#5a5a8a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>
+      <div style={{ margin: '0 12px', background: '#ffffff', border: '1px solid #2c2c2c14', borderRadius: 16, padding: '12px 14px' }}>
+        <div style={{ fontSize: 10, color: '#8a8a8a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>
           Red
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -150,8 +149,8 @@ export default function StatsScreen({ txToday }: Props) {
             { label: 'Precio por pixel', value: '0.01 USDm' },
           ].map(({ label, value }) => (
             <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: 11, color: '#5a5a8a' }}>{label}</span>
-              <span style={{ fontSize: 11, color: '#c0c0e0', fontFamily: 'monospace', fontWeight: 500 }}>{value}</span>
+              <span style={{ fontSize: 11, color: '#8a8a8a' }}>{label}</span>
+              <span style={{ fontSize: 11, color: '#2c2c2c', fontFamily: 'monospace', fontWeight: 500 }}>{value}</span>
             </div>
           ))}
         </div>

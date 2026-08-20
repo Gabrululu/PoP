@@ -153,8 +153,8 @@ function App() {
   const isPainting = paintStatus === 'approving' || paintStatus === 'painting';
 
   return (
-    <div style={{ background: '#0c0c14', minHeight: '100dvh', display: 'flex', justifyContent: 'center' }}>
-      <div style={{ width: '100%', maxWidth: '390px', minHeight: '100dvh', display: 'flex', flexDirection: 'column', position: 'relative', background: '#0c0c14' }}>
+    <div style={{ background: '#fdfbf7', minHeight: '100dvh', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ width: '100%', maxWidth: '390px', minHeight: '100dvh', display: 'flex', flexDirection: 'column', position: 'relative', background: '#fdfbf7' }}>
 
         {/* Reclaim notifications */}
         <ReclaimToast

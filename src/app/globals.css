@@ -3,16 +3,26 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-pop-bg: #0c0c14;
-  --color-pop-surface: #13131f;
-  --color-pop-canvas: #06060e;
-  --color-pop-green: #35d07f;
-  --color-pop-green-dark: #0d2018;
-  --color-pop-border: #1e1e30;
-  --color-pop-text: #e0e0f0;
-  --color-pop-muted: #5a5a8a;
-  --color-pop-red: #e24b4a;
-  --color-pop-amber: #f59e0b;
+  --color-pop-bg: #fdfbf7;
+  --color-pop-surface: #ffffff;
+  --color-pop-canvas: #f3efe7;
+  --color-pop-ink: #2c2c2c;
+  --color-pop-muted: #8a8a8a;
+  --color-pop-border: #2c2c2c14;
+  --color-pop-teal: #68c3a0;
+  --color-pop-teal-shadow: #4a9c7c;
+  --color-pop-red: #e74c3c;
+  --color-pop-red-shadow: #a92e22;
+  --color-pop-orange: #fabe49;
+  --color-pop-orange-shadow: #c8983a;
+  --color-pop-yellow: #f8e45a;
+  --color-pop-yellow-shadow: #c8b32f;
+  --color-pop-purple: #a772b0;
+  --color-pop-purple-shadow: #865b8d;
+  --color-pop-pink: #f48b99;
+  --color-pop-pink-shadow: #c36f7a;
+  --color-pop-blue: #5b77cc;
+  --color-pop-blue-shadow: #495fa3;
 }
 
 @keyframes shake {
@@ -37,8 +47,8 @@
 }
 
 @keyframes glow {
-  0%, 100% { box-shadow: 0 0 8px #35d07f40; }
-  50%       { box-shadow: 0 0 18px #35d07f80; }
+  0%, 100% { box-shadow: 0 0 8px #68c3a040; }
+  50%       { box-shadow: 0 0 18px #68c3a080; }
 }
 
 * {
@@ -51,12 +61,17 @@ html, body {
 }
 
 body {
-  background: #0c0c14;
-  color: #e0e0f0;
+  background: #fdfbf7;
+  color: #2c2c2c;
   font-family: var(--font-geist-sans), system-ui, -apple-system, 'Segoe UI', sans-serif;
   overscroll-behavior: none;
   margin: 0;
   -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: 0.02em;
 }
 
 canvas {
@@ -76,7 +91,7 @@ canvas {
 
 @keyframes markPulse {
   0%, 100% { opacity: 0.8; }
-  50%       { opacity: 1; box-shadow: 0 0 12px var(--mark-color, #35d07f); }
+  50%       { opacity: 1; box-shadow: 0 0 12px var(--mark-color, #68c3a0); }
 }
 
 .mark-zone {
@@ -84,6 +99,21 @@ canvas {
 }
 .mark-zone:hover {
   opacity: 1 !important;
+}
+
+/* Pressable "arcade" button: solid bottom shadow that collapses on press */
+.btn-press {
+  box-shadow: 0 4px 0 0 var(--btn-shadow-color, #00000030);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.btn-press:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 0 var(--btn-shadow-color, #00000030);
+}
+.btn-press:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: 0 4px 0 0 #2c2c2c1f;
 }
 
 .shake     { animation: shake 0.3s ease-in-out; }

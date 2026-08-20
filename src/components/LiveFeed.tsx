@@ -21,7 +21,7 @@ export default function LiveFeed({ feed, onClose }: Props) {
     <>
       <div
         onClick={onClose}
-        style={{ position: 'fixed', inset: 0, zIndex: 60, background: 'rgba(0,0,0,0.6)' }}
+        style={{ position: 'fixed', inset: 0, zIndex: 60, background: 'rgba(44,44,44,0.4)' }}
       />
       <div
         className="slide-up"
@@ -33,22 +33,21 @@ export default function LiveFeed({ feed, onClose }: Props) {
           margin: '0 auto',
           width: '100%',
           maxWidth: '390px',
-          background: '#1a1a2e',
-          border: '0.5px solid #2a2a4a',
-          borderTop: '0.5px solid #35d07f',
-          borderRadius: '16px 16px 0 0',
+          background: '#ffffff',
+          borderRadius: '24px 24px 0 0',
           maxHeight: '70vh',
           overflowY: 'auto',
           zIndex: 80,
           paddingBottom: 64,
+          boxShadow: '0 -8px 24px rgba(44,44,44,0.08)',
         }}
       >
         <div
           style={{
             position: 'sticky',
             top: 0,
-            background: '#1a1a2e',
-            borderBottom: '0.5px solid #2a2a4a',
+            background: '#ffffff',
+            borderBottom: '1px solid #2c2c2c14',
             padding: '12px 16px',
             display: 'flex',
             alignItems: 'center',
@@ -56,12 +55,12 @@ export default function LiveFeed({ feed, onClose }: Props) {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#35d07f', display: 'inline-block' }} />
-            <span style={{ fontSize: 13, fontWeight: 500, color: '#e0e0f0' }}>{T.feedTitle}</span>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#68c3a0', display: 'inline-block' }} />
+            <span style={{ fontSize: 13, fontWeight: 500, color: '#2c2c2c' }}>{T.feedTitle}</span>
           </div>
           <button
             onClick={onClose}
-            style={{ background: 'none', border: 'none', color: '#5a5a8a', cursor: 'pointer', fontSize: 18, lineHeight: 1 }}
+            style={{ background: 'none', border: 'none', color: '#8a8a8a', cursor: 'pointer', fontSize: 18, lineHeight: 1 }}
           >
             ×
           </button>
@@ -69,7 +68,7 @@ export default function LiveFeed({ feed, onClose }: Props) {
 
         <div style={{ padding: '8px 0' }}>
           {feed.length === 0 ? (
-            <div style={{ padding: '24px 16px', textAlign: 'center', color: '#5a5a8a', fontSize: 12 }}>
+            <div style={{ padding: '24px 16px', textAlign: 'center', color: '#8a8a8a', fontSize: 12 }}>
               {T.feedEmpty}
             </div>
           ) : (
@@ -82,13 +81,13 @@ export default function LiveFeed({ feed, onClose }: Props) {
                   alignItems: 'center',
                   gap: 8,
                   padding: '8px 16px',
-                  borderBottom: '0.5px solid #0c0c14',
+                  borderBottom: '1px solid #2c2c2c0d',
                 }}
               >
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: item.color, flexShrink: 0 }} />
-                <span style={{ fontSize: 12, color: '#c0c0e0', flex: 1 }}>{item.address}</span>
-                <span style={{ fontSize: 11, color: '#5a5a8a' }}>({item.x}, {item.y})</span>
-                <span style={{ fontSize: 10, color: '#5a5a8a', marginLeft: 4 }}>
+                <span style={{ fontSize: 12, color: '#2c2c2c', flex: 1 }}>{item.address}</span>
+                <span style={{ fontSize: 11, color: '#8a8a8a' }}>({item.x}, {item.y})</span>
+                <span style={{ fontSize: 10, color: '#8a8a8a', marginLeft: 4 }}>
                   {feedAge(item.timestamp, T)}
                 </span>
               </div>
