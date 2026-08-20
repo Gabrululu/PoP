@@ -3,11 +3,11 @@ export type Lang = 'es' | 'en';
 const es = {
   // Nav
   navCanvas: 'Canvas',
-  navZones: 'Zonas',
+  navLeader: 'Ranking',
   navStats: 'Stats',
 
   // Top bar
-  live: '● vivo',
+  live: 'en vivo',
   miniPay: 'MiniPay ✓',
   langToggle: 'EN',
 
@@ -16,49 +16,37 @@ const es = {
   toolPaint: 'pintar',
   toolColor: 'color',
   toolZoom: 'zoom',
-  cursor: (x: number, y: number) => `cursor (${x}, ${y})`,
-  paintCta: 'Pintar píxel — 0.01 cUSD',
+  cursor: (x: number, y: number) => `(${x}, ${y})`,
+  paintCta: 'Pintar píxel — 0.01 USDm',
   insufficientBalance: 'Balance insuficiente',
-  pixelsToday: 'píxeles pintados hoy',
+  pixelsToday: 'txs hoy',
 
-  // Zonas screen
-  zonesHeader: 'Zonas activas',
-  zonesThisWeek: 'esta semana',
-  zonesEmptyTitle: 'No hay zonas aún',
-  zonesEmptySub: 'Crea la primera zona territorial\ny empieza a reclamar el canvas',
-  zonesCreateBtn: '+ Crear mi zona',
-  zonesCostInfo: (balance: string) => `Cuesta 1.00 cUSD · balance: ${balance} cUSD`,
-  zonesFormTitle: 'Crear zona',
-  zonesFormNameLabel: 'Nombre de la zona',
-  zonesFormNamePlaceholder: 'Mi zona épica…',
-  zonesFormColorLabel: 'Color de la zona',
-  zonesFormConfirm: 'Crear zona — 1.00 cUSD',
-  zoneStatusDominada: 'dominada',
-  zoneStatusActiva: 'activa',
-  zoneStatusCreciendo: 'creciendo',
-  zoneStatusNueva: 'nueva',
-  zoneStatusAttack: '⚡ bajo ataque',
-  zoneCoords: (x1: number, y1: number, x2: number, y2: number) =>
-    `zona (${x1},${y1})→(${x2},${y2})`,
+  // Leaderboard screen
+  leaderHeader: 'Ranking de pintores',
+  leaderPrizePool: 'Prize Pool',
+  leaderPrizeDesc: '80% de cada pintura va al pool',
+  leaderTopPainters: 'Top pintores',
+  leaderEmpty: 'Sin actividad aún · ¡sé el primero!',
+  leaderYourRank: 'Tu posición',
+  leaderYourPixels: 'píxeles pintados',
+  leaderHowToWin: 'Pinta más para escalar el ranking',
+  leaderUnranked: 'Sin ranking',
+  leaderPixelUnit: 'px',
 
   // Stats screen
   statsHeader: 'Stats globales',
   statsPixelsLabel: 'Píxeles pintados',
-  statsCusdLabel: 'cUSD recaudado',
+  statsUsdmLabel: 'USDm recaudado',
   statsTxsLabel: 'Txs hoy',
-  statsCompletedLabel: 'Canvas completado',
-  statsTopPainters: 'Top pintores · esta semana',
-  statsEmptyTitle: 'Sé el primero en pintar',
-  statsEmptySub: 'El ranking aparecerá aquí',
-  statsYou: 'tú',
-  statsProgressLabel: 'canvas completado',
-  statsPixelsCount: (n: string, total: string) => `${n} / ${total} píxeles`,
+  statsCompletedLabel: 'Completado',
+  statsProgressLabel: 'progreso del canvas',
+  statsPixelsCount: (n: string, total: string) => `${n} / ${total}`,
 
   // Pixel inspector
-  inspectorOwner: 'propietario actual',
+  inspectorOwner: 'propietario',
   inspectorAgo: (m: number) => `hace ${m} min`,
   inspectorHistory: 'últimos pintores',
-  inspectorReclaim: 'Reclamar este píxel — 0.01 cUSD',
+  inspectorReclaim: 'Reclamar — 0.01 USDm',
   inspectorInsufficient: 'Balance insuficiente',
 
   // Live feed
@@ -70,67 +58,48 @@ const es = {
 };
 
 const en: typeof es = {
-  // Nav
   navCanvas: 'Canvas',
-  navZones: 'Zones',
+  navLeader: 'Ranking',
   navStats: 'Stats',
 
-  // Top bar
-  live: '● live',
+  live: 'live',
   miniPay: 'MiniPay ✓',
   langToggle: 'ES',
 
-  // Canvas screen
   muralLabel: 'mural 512×512',
   toolPaint: 'paint',
   toolColor: 'color',
   toolZoom: 'zoom',
-  cursor: (x: number, y: number) => `cursor (${x}, ${y})`,
-  paintCta: 'Paint pixel — 0.01 cUSD',
+  cursor: (x: number, y: number) => `(${x}, ${y})`,
+  paintCta: 'Paint pixel — 0.01 USDm',
   insufficientBalance: 'Insufficient balance',
-  pixelsToday: 'pixels painted today',
+  pixelsToday: 'txs today',
 
-  // Zonas screen
-  zonesHeader: 'Active zones',
-  zonesThisWeek: 'this week',
-  zonesEmptyTitle: 'No zones yet',
-  zonesEmptySub: 'Create the first territorial zone\nand start claiming the canvas',
-  zonesCreateBtn: '+ Create my zone',
-  zonesCostInfo: (balance: string) => `Costs 1.00 cUSD · balance: ${balance} cUSD`,
-  zonesFormTitle: 'Create zone',
-  zonesFormNameLabel: 'Zone name',
-  zonesFormNamePlaceholder: 'My epic zone…',
-  zonesFormColorLabel: 'Zone color',
-  zonesFormConfirm: 'Create zone — 1.00 cUSD',
-  zoneStatusDominada: 'dominated',
-  zoneStatusActiva: 'active',
-  zoneStatusCreciendo: 'growing',
-  zoneStatusNueva: 'new',
-  zoneStatusAttack: '⚡ under attack',
-  zoneCoords: (x1: number, y1: number, x2: number, y2: number) =>
-    `zone (${x1},${y1})→(${x2},${y2})`,
+  leaderHeader: 'Painter rankings',
+  leaderPrizePool: 'Prize Pool',
+  leaderPrizeDesc: '80% of every paint goes to the pool',
+  leaderTopPainters: 'Top painters',
+  leaderEmpty: 'No activity yet · be the first!',
+  leaderYourRank: 'Your rank',
+  leaderYourPixels: 'pixels painted',
+  leaderHowToWin: 'Paint more to climb the rankings',
+  leaderUnranked: 'Unranked',
+  leaderPixelUnit: 'px',
 
-  // Stats screen
   statsHeader: 'Global stats',
   statsPixelsLabel: 'Pixels painted',
-  statsCusdLabel: 'cUSD raised',
+  statsUsdmLabel: 'USDm raised',
   statsTxsLabel: 'Txs today',
-  statsCompletedLabel: 'Canvas completed',
-  statsTopPainters: 'Top painters · this week',
-  statsEmptyTitle: 'Be the first to paint',
-  statsEmptySub: 'The ranking will appear here',
-  statsYou: 'you',
-  statsProgressLabel: 'canvas completed',
-  statsPixelsCount: (n: string, total: string) => `${n} / ${total} pixels`,
+  statsCompletedLabel: 'Completed',
+  statsProgressLabel: 'canvas progress',
+  statsPixelsCount: (n: string, total: string) => `${n} / ${total}`,
 
-  // Pixel inspector
-  inspectorOwner: 'current owner',
+  inspectorOwner: 'owner',
   inspectorAgo: (m: number) => `${m} min ago`,
   inspectorHistory: 'last painters',
-  inspectorReclaim: 'Claim this pixel — 0.01 cUSD',
+  inspectorReclaim: 'Claim — 0.01 USDm',
   inspectorInsufficient: 'Insufficient balance',
 
-  // Live feed
   feedTitle: 'Live activity',
   feedEmpty: 'Waiting for activity…',
   feedNow: 'now',

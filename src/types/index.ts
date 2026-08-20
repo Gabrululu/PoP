@@ -1,4 +1,4 @@
-export type Screen = 'canvas' | 'zonas' | 'stats';
+export type Screen = 'canvas' | 'leaderboard' | 'stats';
 export type Tool = 'paint' | 'picker' | 'zoom';
 export type ZoneStatus = 'dominada' | 'activa' | 'creciendo' | 'nueva' | 'bajo ataque';
 

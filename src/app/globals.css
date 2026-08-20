@@ -4,11 +4,11 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-pop-bg: #0c0c14;
-  --color-pop-surface: #1a1a2e;
+  --color-pop-surface: #13131f;
   --color-pop-canvas: #06060e;
   --color-pop-green: #35d07f;
   --color-pop-green-dark: #0d2018;
-  --color-pop-border: #2a2a4a;
+  --color-pop-border: #1e1e30;
   --color-pop-text: #e0e0f0;
   --color-pop-muted: #5a5a8a;
   --color-pop-red: #e24b4a;
@@ -31,6 +31,16 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 8px #35d07f40; }
+  50%       { box-shadow: 0 0 18px #35d07f80; }
+}
+
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -43,9 +53,10 @@ html, body {
 body {
   background: #0c0c14;
   color: #e0e0f0;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, 'Segoe UI', sans-serif;
   overscroll-behavior: none;
   margin: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
 canvas {
@@ -53,9 +64,41 @@ canvas {
   image-rendering: crisp-edges;
 }
 
-.shake { animation: shake 0.3s ease-in-out; }
-.slide-up { animation: slideUp 0.2s ease-out forwards; }
-.feed-in { animation: feedIn 0.15s ease-out forwards; }
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3px); }
+}
+
+@keyframes markPulse {
+  0%, 100% { opacity: 0.8; }
+  50%       { opacity: 1; box-shadow: 0 0 12px var(--mark-color, #35d07f); }
+}
+
+.mark-zone {
+  transition: opacity 0.15s;
+}
+.mark-zone:hover {
+  opacity: 1 !important;
+}
+
+.shake     { animation: shake 0.3s ease-in-out; }
+.slide-up  { animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.feed-in   { animation: feedIn 0.15s ease-out forwards; }
+.pulse-bg  { animation: pulse 1.5s ease-in-out infinite; }
+.glow-btn  { animation: glow 2s ease-in-out infinite; }
 
 button { font-family: inherit; }
+input  { font-family: inherit; }
+
 ::-webkit-scrollbar { width: 0; }
+
+/* Smooth scroll for modals */
+.modal-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}

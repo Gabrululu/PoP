@@ -14,9 +14,9 @@ export const COLOR_NAMES: Record<string, string> = {
   '#ef9f27': 'Gold',
 };
 
-export const COLS = 66;
-export const ROWS = 44;
-export const PIXEL_SCALE = 8;
+export const COLS = 22;
+export const ROWS = 14;
+export const PIXEL_SCALE = 16;
 export const TOTAL_PIXELS = 512 * 512; // 262144
 
 export const DEMO_ADDRESSES = [
